@@ -53,6 +53,7 @@ class RFMTransformer(TransformerMixin, BaseEstimator):
         the output shape does not change under existing callers, and will become
         the default in the next major release.
     """
+
     def __init__(
         self,
         reference_date: Any = None,
@@ -67,6 +68,7 @@ class RFMTransformer(TransformerMixin, BaseEstimator):
 
     def fit(self: _Self, X: Any, y: Any = None) -> _Self:
         """Fit the transformer by validating input and freezing the reference date.
+
         Parameters
         ----------
         X : array-like of shape (n_samples, n_features)
@@ -74,8 +76,10 @@ class RFMTransformer(TransformerMixin, BaseEstimator):
             ``gift_amount``.
         y : ignored
             Present for scikit-learn API compatibility.
+
         Returns
         -------
+
         self : RFMTransformer
             Fitted transformer with the following attributes frozen:
 
@@ -90,12 +94,15 @@ class RFMTransformer(TransformerMixin, BaseEstimator):
                 ``as_of`` cutoff is applied) and frozen to ensure consistent
                 recency calculations across :meth:`transform` calls on different
                 batches.
+
         Raises
         ------
+
         ValueError
             If ``X`` is missing any of the required columns ``donor_id``,
             ``gift_date``, or ``gift_amount``.
         """
+        
         # Manual validation to avoid name/length strictness during fit
         if hasattr(X, "columns"):
             self.feature_names_in_ = np.array(X.columns.tolist(), dtype=object)
@@ -129,6 +136,7 @@ class RFMTransformer(TransformerMixin, BaseEstimator):
         X : array-like of shape (n_samples, n_features)
             Transaction log with required columns ``donor_id``, ``gift_date``, and
             ``gift_amount``. Rows are gift-level; output is donor-level.
+
         Returns
         -------
         rfm_df : pd.DataFrame of shape (n_donors, 4 or 5)
@@ -147,6 +155,7 @@ class RFMTransformer(TransformerMixin, BaseEstimator):
             * ``tenure`` : int64
                 *Optional, present only if ``include_tenure=True``.*
                 Days from each donor's first gift to the frozen ``reference_date_``.
+                
         Raises
         ------
         sklearn.exceptions.NotFittedError
