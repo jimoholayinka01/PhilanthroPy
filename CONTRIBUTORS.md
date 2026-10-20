@@ -86,6 +86,16 @@ contribution. Code, docs, tests, and review all count.
 - [@Dikshant2965](https://github.com/Dikshant2965): added regression coverage for
   `PlannedGivingSignalTransformer` when transforming a NumPy array after fitting
   on a DataFrame (closes #154).
+- [@Kaap10](https://github.com/Kaap10): added test coverage in
+  `tests/test_encounter_timezone.py` guarding that
+  `EncounterRecencyTransformer` raises a `KeyError` naming the invalid timezone
+  and does not emit the misleading "Already tz-aware" error (closes
+  [#204](https://github.com/PhilanthroPy-Project/PhilanthroPy/issues/204)).
+- **Vardhman Gupta** ([@Kaap10](https://github.com/Kaap10)): removed the dead
+  `philanthropy/preprocessing/_solicitation_window.py` module, preserving the
+  deprecated `SolicitationWindowTransformer` alias via the subpackage's PEP 562
+  `__getattr__` (closes
+  [#153](https://github.com/PhilanthroPy-Project/PhilanthroPy/issues/153)).
 
 - **Olayimika** ([@jimoholayinka01](https://github.com/jimoholayinka01)):
   added `Parameters`, `Returns` and `Raises` sections to `RFMTransformer.fit`

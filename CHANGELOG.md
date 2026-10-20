@@ -6,6 +6,9 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 ## [Unreleased]
 
 ### Added
+- Added test coverage in `tests/test_encounter_timezone.py` guarding that
+  `EncounterRecencyTransformer` raises a `KeyError` naming the invalid timezone
+  and does not emit the misleading "Already tz-aware" error. Closes #204.
 - Tests for `MovesManagementClassifier` now fit a named DataFrame and an
   array so `feature_names_in_` is both recorded and absent on the paths
   sklearn specifies. Closes #200.
@@ -90,6 +93,13 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
   `sh scripts/install_hooks.sh` requires Git Bash. Testing confirmed the
   installed pre-push hook does not fire when pushing from plain PowerShell.
   Closes #195.
+
+### Removed
+- Deleted `philanthropy/preprocessing/_solicitation_window.py`, a dead module
+  nothing imported. The deprecated `SolicitationWindowTransformer` alias it held
+  was already served by the subpackage's PEP 562 module-level `__getattr__`, so
+  importing it still warns and still resolves to
+  `DischargeToSolicitationWindowTransformer`. Closes #153.
 
 ### Fixed
 - `ensure_local_path` now accepts absolute Windows drive-letter paths such as
